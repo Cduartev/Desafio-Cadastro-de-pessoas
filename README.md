@@ -62,16 +62,6 @@ Após implantação, acesse:
 http://localhost:8080/cadastro-pessoas/
 ```
 
-## 🤝 Contribuição
-
-Contribuições são bem-vindas! Siga os passos:
-
-1. Faça um fork do projeto
-2. Crie uma branch (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
-
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
