@@ -1,10 +1,10 @@
 # Cadastro de Pessoas - JSF + PrimeFaces + JPA
 
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![JSF](https://img.shields.io/badge/JSF-orange)
-![PrimeFaces](https://img.shields.io/badge/PrimeFaces-blue)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-blue?logo=postgresql)
-![Maven](https://img.shields.io/badge/Maven-red?logo=apache-maven)
+![JSF](https://img.shields.io/badge/JSF-2.2+-orange)
+![PrimeFaces](https://img.shields.io/badge/PrimeFaces-10.0+-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13+-blue?logo=postgresql)
+![Maven](https://img.shields.io/badge/Maven-3.6+-red?logo=apache-maven)
 
 Sistema de cadastro de pessoas desenvolvido com Java EE, JSF, PrimeFaces e JPA/Hibernate.
 
@@ -47,8 +47,8 @@ Sistema de cadastro de pessoas desenvolvido com Java EE, JSF, PrimeFaces e JPA/H
    ```
 
 3. Atualize as credenciais no `persistence.xml`:
-   ```
-  <?xml version="1.0" encoding="UTF-8"?>
+  
+ ```` <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
