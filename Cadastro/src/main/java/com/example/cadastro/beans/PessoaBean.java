@@ -9,6 +9,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -124,13 +125,29 @@ public class PessoaBean implements Serializable {
             this.nome = nome;
         }
 
-        public String getSigla() { return sigla; }
-        public String getNome() { return nome; }
+        public String getSigla() {
+            return sigla;
+        }
+
+        public String getNome() {
+            return nome;
+        }
     }
 
     // Getters e Setters
-    public Pessoa getPessoa() { return pessoa; }
-    public void setPessoa(Pessoa pessoa) { this.pessoa = pessoa; }
-    public List<Pessoa> getPessoas() { return pessoas; }
-    public List<Estado> getEstadosBrasil() { return estadosBrasil; }
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public List<Pessoa> getPessoas() {
+        return pessoas;
+    }
+
+    public List<Estado> getEstadosBrasil() {
+        return estadosBrasil;
+    }
 }
