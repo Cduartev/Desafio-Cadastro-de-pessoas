@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Listagem de Pessoas</title>
+    <style>
+        .table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .table th, .table td { padding: 8px; border: 1px solid #ddd; }
+    </style>
+</h:head>
+<h:body>
+    <h:form id="formListagem">
+        <h:messages styleClass="messages" showDetail="true"/>
+
+        <h1>Listagem de Pessoas</h1>
+        <h:button value="Nova Pessoa" outcome="form"/>
+
+        <h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" styleClass="table">
+            <h:column>
+                <f:facet name="header">Nome</f:facet>
+                #{pessoa.nome}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Idade</f:facet>
+                #{pessoa.idade}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Ações</f:facet>
+                <h:commandButton value="Editar" action="#{pessoaBean.editar(pessoa.id)}"/>
+                <h:commandButton value="Excluir" action="#{pessoaBean.excluir(pessoa.id)}"/>
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</h:body>
+</html>

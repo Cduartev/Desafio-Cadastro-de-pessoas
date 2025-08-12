@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Cadastro de Pessoa</title>
+    <style>
+        .form-container { max-width: 800px; margin: 20px auto; padding: 20px; }
+        .form-title { color: #343a40; margin-bottom: 20px; }
+        .messages { margin: 10px 0; }
+        .required-field:after { content: " *"; color: red; }
+    </style>
+</h:head>
+<h:body>
+    <div class="form-container">
+        <h:form id="cadastroForm">
+            <h:messages styleClass="messages" showDetail="true"/>
+
+            <h3 class="form-title">Cadastro de Pessoa</h3>
+
+            <h:panelGrid columns="2">
+                <h:outputLabel for="nome" value="Nome:" styleClass="required-field"/>
+                <h:inputText id="nome" value="#{pessoaBean.pessoa.nome}" required="true"/>
+
+                <h:outputLabel for="idade" value="Idade:" styleClass="required-field"/>
+                <h:inputText id="idade" value="#{pessoaBean.pessoa.idade}" required="true"/>
+
+                <h:outputLabel for="sexo" value="Sexo:" styleClass="required-field"/>
+                <h:selectOneMenu id="sexo" value="#{pessoaBean.pessoa.sexo}" required="true">
+                    <f:selectItem itemLabel="Selecione" itemValue=""/>
+                    <f:selectItem itemLabel="Masculino" itemValue="M"/>
+                    <f:selectItem itemLabel="Feminino" itemValue="F"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+
+            <h3>Endereços</h3>
+            <h:dataTable value="#{pessoaBean.pessoa.enderecos}" var="endereco"
+                         styleClass="table" rendered="#{not empty pessoaBean.pessoa.enderecos}">
+                <h:column>
+                    <f:facet name="header">CEP</f:facet>
+                    <h:inputText value="#{endereco.cep}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Cidade</f:facet>
+                    <h:inputText value="#{endereco.cidade}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Ações</f:facet>
+                    <h:commandButton value="Remover" action="#{pessoaBean.removerEndereco(endereco)}"/>
+                </h:column>
+            </h:dataTable>
+
+            <h:commandButton value="Adicionar Endereço" action="#{pessoaBean.adicionarEndereco}"/>
+            <h:commandButton value="Salvar" action="#{pessoaBean.salvar}"/>
+            <h:button value="Voltar" outcome="index"/>
+        </h:form>
+    </div>
+</h:body>
+</html>

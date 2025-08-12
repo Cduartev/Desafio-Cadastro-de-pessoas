@@ -1,0 +1,9 @@
+<jboss-deployment-structure>
+    <deployment>
+        <dependencies>
+            <module name="javax.faces.api" slot="main" export="true"/>
+            <module name="com.sun.jsf-impl" slot="main" export="true"/>
+            <module name="javax.servlet.api" export="true"/>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>
