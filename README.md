@@ -2,12 +2,12 @@
 
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)  
 ![JSF](https://img.shields.io/badge/JSF-2.2+-orange)  
-![PrimeFaces](https://img.shields.io/badge/PrimeFaces-10.0+-blue)  
+![BootsFaces](https://img.shields.io/badge/BootsFaces-1.5.0+-blue)  
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13+-blue?logo=postgresql)  
 ![Maven](https://img.shields.io/badge/Maven-3.6+-red?logo=apache-maven)  
 
-Sistema de **cadastro e gerenciamento de pessoas** desenvolvido utilizando **Java EE**, **JSF**, **PrimeFaces** e **JPA/Hibernate**, com integração ao **PostgreSQL**.  
-O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arquitetura limpa e utilização de recursos avançados do ecossistema Java EE.  
+Sistema de **cadastro e gerenciamento de pessoas** desenvolvido utilizando **Java EE**, **JSF**, **BootsFaces** e **JPA/Hibernate**, com integração ao **PostgreSQL**.  
+O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arquitetura limpa e utilização de recursos modernos do ecossistema Java EE.  
 
 ---
 
@@ -16,7 +16,7 @@ O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arq
 - **CRUD completo de pessoas**  
 - **Gerenciamento de múltiplos endereços por pessoa**  
 - **Validação de formulários no cliente e no servidor**  
-- **Interface responsiva com PrimeFaces**  
+- **Interface responsiva com BootsFaces + Bootstrap**  
 - **Integração total com PostgreSQL via JPA/Hibernate**  
 - **Estrutura modular para fácil manutenção**  
 
@@ -24,12 +24,39 @@ O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arq
 
 ## 🏗 Arquitetura e Tecnologias
 
-**Frontend:** JSF + PrimeFaces  
+**Frontend:** JSF + BootsFaces (Bootstrap integrado)  
 **Backend:** Java 17, Java EE 11 (EJBs)  
 **Persistência:** JPA + Hibernate  
 **Banco de Dados:** PostgreSQL 13+  
 **Build e Gestão de Dependências:** Maven 3.6+  
 **Servidor de Aplicação:** WildFly (Java EE 11)  
+
+---
+
+## 💡 Por que escolhi cada tecnologia?
+
+- **Java EE 11 + EJBs** → Fornece uma arquitetura robusta e padronizada para aplicações corporativas, com gerenciamento transacional e segurança embutidos.  
+- **JSF (JavaServer Faces)** → Framework oficial da especificação Java EE para criação de interfaces web baseadas em componentes, facilitando a ligação entre backend e frontend.  
+- **BootsFaces** → Escolhido no lugar do PrimeFaces por integrar **Bootstrap** diretamente ao JSF, garantindo **layout responsivo** e **componentes estilizados** sem necessidade de configuração extra, além de ser mais leve e fácil de customizar.  
+- **JPA + Hibernate** → Abstrai o acesso ao banco de dados com mapeamento objeto-relacional (ORM), reduzindo código SQL e facilitando manutenção.  
+- **PostgreSQL** → Banco de dados relacional poderoso, confiável, open-source e amplamente utilizado no mercado.  
+- **Maven** → Gerenciador de dependências e build, garantindo reprodutibilidade do projeto e integração facilitada com servidores de aplicação.  
+- **WildFly** → Servidor de aplicação Java EE moderno e de alta performance, com suporte nativo para EJBs, JPA e JSF.  
+
+---
+
+## 📊 BootsFaces x PrimeFaces — Por que a troca?
+
+| Critério                  | BootsFaces | PrimeFaces |
+|---------------------------|------------|------------|
+| **Integração com Bootstrap** | Nativa e pronta para uso | Necessita tema extra ou configuração |
+| **Leveza**                | Mais leve, menos dependências JS | Mais pesado, mais scripts carregados |
+| **Curva de aprendizado**  | Baixa, segue padrão Bootstrap | Média, precisa aprender componentes específicos |
+| **Customização de CSS**   | Fácil (aproveita classes do Bootstrap) | Mais restrito, exige temas próprios |
+| **Responsividade**        | Nativa via Bootstrap Grid | Depende do layout/tema |
+| **Quantidade de componentes** | Menor, mas suficiente para CRUDs | Muito maior, mas pode ser excesso para apps simples |
+
+> **Resumo:** O BootsFaces foi escolhido porque o foco do projeto é **simplicidade, responsividade e personalização rápida** sem sobrecarregar a aplicação com recursos que não serão utilizados.
 
 ---
 
