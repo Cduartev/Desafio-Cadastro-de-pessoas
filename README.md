@@ -133,12 +133,13 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 🔗 GitHub: [Cduartev](https://github.com/Cduartev)  
 
 ## 📂 Telas
+**CADASTAR**
 ![Cadastrar](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-cadastrar.png)
-
+**lISTAR**
 ![Listar](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-listagem.png)
-
+**EXCLUIR**
 ![Excluir](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-excluir.png)
-
+**EDITAR**
 ![editar](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-editar.png)
 
 
