@@ -131,3 +131,16 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 **Cayo Duarte Vidal**  
 📧 Email: [cayoduartevidal@gmail.com](mailto:cayoduartevidal@gmail.com)  
 🔗 GitHub: [Cduartev](https://github.com/Cduartev)  
+
+## 📂 Telas
+![Cadastrar](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-cadastrar.png)
+
+![Listar](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-listagem.png)
+
+![Excluir](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-excluir.png)
+
+![editar](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-editar.png)
+
+
+
+
