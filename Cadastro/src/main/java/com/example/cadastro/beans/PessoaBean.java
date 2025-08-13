@@ -50,9 +50,16 @@ public class PessoaBean implements Serializable {
         estadosBrasil = Arrays.asList(
                 new Estado("AC", "Acre"),
                 new Estado("AL", "Alagoas"),
-                // ... (todos os estados)
+                // ... adicione os demais estados aqui ...
                 new Estado("TO", "Tocantins")
         );
+    }
+
+    // Novo método para criar pessoa e ir para o formulário
+    public String novaPessoa() {
+        this.pessoa = new Pessoa();
+        this.pessoa.setEnderecos(new ArrayList<>()); // Evita NullPointer ao adicionar endereço
+        return "form.xhtml?faces-redirect=true";
     }
 
     public String salvar() {
