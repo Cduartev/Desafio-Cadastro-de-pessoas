@@ -3,6 +3,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui">
+
 <h:head>
     <title>Cadastro de Pessoa</title>
 </h:head>
@@ -11,7 +12,7 @@
         <b:messages id="msgs" showDetail="true" autoUpdate="true" closable="true" />
 
         <h:form id="cadastroForm">
-            <b:panel title="Cadastro de Pessoa" look="primary">
+            <b:panel title="#{pessoaBean.pessoa.id == null ? 'Nova Pessoa' : 'Editar Pessoa'}" look="primary">
                 <b:row>
                     <b:column col-md="6">
                         <b:inputText label="Nome" value="#{pessoaBean.pessoa.nome}" required="true" labelStyleClass="required-field"/>
@@ -30,21 +31,40 @@
             </b:panel>
 
             <b:panel title="Endereços" look="info">
-                <b:dataTable value="#{pessoaBean.pessoa.enderecos}" var="endereco" rendered="#{not empty pessoaBean.pessoa.enderecos}" striped="true" responsive="true">
+                <b:dataTable value="#{pessoaBean.pessoa.enderecos}" var="endereco"
+                             rendered="#{not empty pessoaBean.pessoa.enderecos}"
+                             striped="true" responsive="true">
                     <b:dataTableColumn label="CEP">
                         <b:inputText value="#{endereco.cep}" />
                     </b:dataTableColumn>
+
                     <b:dataTableColumn label="Cidade">
                         <b:inputText value="#{endereco.cidade}" />
                     </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Estado">
+                        <b:selectOneMenu value="#{endereco.estado}">
+                            <f:selectItem itemLabel="Selecione" itemValue="" />
+                            <f:selectItems value="#{pessoaBean.estadosBrasil}"
+                                           var="estado"
+                                           itemLabel="#{estado.nome}"
+                                           itemValue="#{estado.sigla}" />
+                        </b:selectOneMenu>
+                    </b:dataTableColumn>
+
+                    <b:dataTableColumn label="Número">
+                        <b:inputText value="#{endereco.numero}" />
+                    </b:dataTableColumn>
+
                     <b:dataTableColumn label="Ações">
-                        <b:commandButton value="Remover" look="danger" action="#{pessoaBean.removerEndereco(endereco)}" />
+                        <b:commandButton value="Remover" look="danger" action="#{pessoaBean.removerEndereco(endereco)}" ajax="true" update="@form" />
                     </b:dataTableColumn>
                 </b:dataTable>
-                <b:commandButton value="Adicionar Endereço" look="info" icon="plus" action="#{pessoaBean.adicionarEndereco}" />
+
+                <b:commandButton value="Adicionar Endereço" look="info" icon="plus" action="#{pessoaBean.adicionarEndereco}" ajax="true" update="@form" />
             </b:panel>
 
-            <b:commandButton value="Salvar" look="success" icon="save" action="#{pessoaBean.salvar}" />
+            <b:commandButton value="Salvar" look="success" icon="save" action="#{pessoaBean.salvar}" ajax="false" />
             <b:button value="Voltar" look="default" icon="arrow-left" outcome="index" />
         </h:form>
     </b:container>

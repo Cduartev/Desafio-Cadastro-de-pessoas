@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,6 +36,36 @@ public class PessoaBean implements Serializable {
     public void init() {
         carregarPessoas();
         initEstadosBrasil();
+        carregarPessoaSeIdPresente();
+    }
+
+    /**
+     * Se houver "id" como parâmetro na URL, carrega a pessoa para edição.
+     */
+    private void carregarPessoaSeIdPresente() {
+        try {
+            Map<String, String> params = FacesContext.getCurrentInstance()
+                    .getExternalContext()
+                    .getRequestParameterMap();
+
+            String idParam = params.get("id");
+            if (idParam != null && !idParam.isEmpty()) {
+                Long id = Long.parseLong(idParam);
+                pessoa = service.buscar(id);
+                if (pessoa.getEnderecos() == null) {
+                    pessoa.setEnderecos(new ArrayList<>());
+                }
+                for (Endereco e : pessoa.getEnderecos()) {
+                    e.setPessoa(pessoa);
+                }
+            } else {
+                pessoa = new Pessoa();
+                pessoa.setEnderecos(new ArrayList<>());
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Erro ao carregar pessoa por ID", e);
+            addErrorMessage("Erro ao carregar dados da pessoa para edição.");
+        }
     }
 
     private void carregarPessoas() {
@@ -50,20 +81,47 @@ public class PessoaBean implements Serializable {
         estadosBrasil = Arrays.asList(
                 new Estado("AC", "Acre"),
                 new Estado("AL", "Alagoas"),
-                // ... adicione os demais estados aqui ...
+                new Estado("AP", "Amapá"),
+                new Estado("AM", "Amazonas"),
+                new Estado("BA", "Bahia"),
+                new Estado("CE", "Ceará"),
+                new Estado("DF", "Distrito Federal"),
+                new Estado("ES", "Espírito Santo"),
+                new Estado("GO", "Goiás"),
+                new Estado("MA", "Maranhão"),
+                new Estado("MT", "Mato Grosso"),
+                new Estado("MS", "Mato Grosso do Sul"),
+                new Estado("MG", "Minas Gerais"),
+                new Estado("PA", "Pará"),
+                new Estado("PB", "Paraíba"),
+                new Estado("PR", "Paraná"),
+                new Estado("PE", "Pernambuco"),
+                new Estado("PI", "Piauí"),
+                new Estado("RJ", "Rio de Janeiro"),
+                new Estado("RN", "Rio Grande do Norte"),
+                new Estado("RS", "Rio Grande do Sul"),
+                new Estado("RO", "Rondônia"),
+                new Estado("RR", "Roraima"),
+                new Estado("SC", "Santa Catarina"),
+                new Estado("SP", "São Paulo"),
+                new Estado("SE", "Sergipe"),
                 new Estado("TO", "Tocantins")
         );
     }
 
-    // Novo método para criar pessoa e ir para o formulário
     public String novaPessoa() {
         this.pessoa = new Pessoa();
-        this.pessoa.setEnderecos(new ArrayList<>()); // Evita NullPointer ao adicionar endereço
+        this.pessoa.setEnderecos(new ArrayList<>());
         return "form.xhtml?faces-redirect=true";
     }
 
     public String salvar() {
         try {
+            if (pessoa.getEnderecos() != null) {
+                for (Endereco e : pessoa.getEnderecos()) {
+                    e.setPessoa(pessoa);
+                }
+            }
             service.salvar(pessoa);
             carregarPessoas();
             pessoa = new Pessoa();
@@ -72,20 +130,6 @@ public class PessoaBean implements Serializable {
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Erro ao salvar pessoa", e);
             addErrorMessage("Erro ao salvar pessoa. Por favor, tente novamente.");
-            return null;
-        }
-    }
-
-    public String editar(Long id) {
-        try {
-            pessoa = service.buscar(id);
-            if (pessoa.getEnderecos() == null) {
-                pessoa.setEnderecos(new ArrayList<>());
-            }
-            return "form.xhtml?faces-redirect=true";
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Erro ao buscar pessoa para edição", e);
-            addErrorMessage("Erro ao carregar pessoa para edição.");
             return null;
         }
     }
@@ -105,7 +149,9 @@ public class PessoaBean implements Serializable {
         if (pessoa.getEnderecos() == null) {
             pessoa.setEnderecos(new ArrayList<>());
         }
-        pessoa.getEnderecos().add(new Endereco());
+        Endereco novoEndereco = new Endereco();
+        novoEndereco.setPessoa(pessoa);
+        pessoa.getEnderecos().add(novoEndereco);
     }
 
     public void removerEndereco(Endereco endereco) {
@@ -122,7 +168,6 @@ public class PessoaBean implements Serializable {
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", message));
     }
 
-    // Classe interna para estados
     public static class Estado {
         private String sigla;
         private String nome;
@@ -154,7 +199,15 @@ public class PessoaBean implements Serializable {
         return pessoas;
     }
 
+    public void setPessoas(List<Pessoa> pessoas) {
+        this.pessoas = pessoas;
+    }
+
     public List<Estado> getEstadosBrasil() {
         return estadosBrasil;
+    }
+
+    public void setEstadosBrasil(List<Estado> estadosBrasil) {
+        this.estadosBrasil = estadosBrasil;
     }
 }

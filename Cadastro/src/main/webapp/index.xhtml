@@ -3,6 +3,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui">
+
 <h:head>
     <title>Listagem de Pessoas</title>
 </h:head>
@@ -11,19 +12,33 @@
         <h:form id="formListagem">
             <b:messages id="msgs" showDetail="true" autoUpdate="true" closable="true" />
 
-            <b:commandButton value="Nova Pessoa" look="primary" icon="plus" action="#{pessoaBean.novaPessoa}" />
+            <!-- Botão Nova Pessoa - vai direto para form.xhtml -->
+            <h:link outcome="form.xhtml" styleClass="btn btn-primary">
+                <i class="fa fa-plus"></i> Nova Pessoa
+            </h:link>
 
-
-            <b:dataTable value="#{pessoaBean.pessoas}" var="pessoa" striped="true" responsive="true">
+            <!-- Tabela de Pessoas -->
+            <b:dataTable value="#{pessoaBean.pessoas}" var="pessoa"
+                         striped="true" responsive="true">
                 <b:dataTableColumn label="Nome">
                     #{pessoa.nome}
                 </b:dataTableColumn>
+
                 <b:dataTableColumn label="Idade">
                     #{pessoa.idade}
                 </b:dataTableColumn>
+
                 <b:dataTableColumn label="Ações">
-                    <b:commandButton value="Editar" look="warning" icon="edit" action="#{pessoaBean.editar(pessoa.id)}" />
-                    <b:commandButton value="Excluir" look="danger" icon="trash" action="#{pessoaBean.excluir(pessoa.id)}" />
+                    <!-- Link para página de edição passando ID -->
+                    <h:link value="Editar" outcome="form.xhtml" styleClass="btn btn-warning btn-sm">
+                        <f:param name="id" value="#{pessoa.id}" />
+                    </h:link>
+
+                    <b:commandButton value="Excluir"
+                                     look="danger"
+                                     icon="trash"
+                                     action="#{pessoaBean.excluir(pessoa.id)}"
+                                     ajax="false" />
                 </b:dataTableColumn>
             </b:dataTable>
         </h:form>
