@@ -82,6 +82,7 @@ O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arq
    ```sql
    CREATE DATABASE cadastro_pessoas;
    ```
+![Diagrama UML](relacionamento.png)
 
 3. **Configurar credenciais no `persistence.xml`**  
    Ajuste usuário, senha e URL do banco conforme seu ambiente.
