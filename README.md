@@ -2,7 +2,7 @@
 
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)  
 ![JSF](https://img.shields.io/badge/JSF-2.2+-orange)  
-![BootsFaces](https://img.shields.io/badge/BootsFaces-1.5.0+-blue)  
+![BootsFaces](https://img.shields.io/badge/BootsFaces-2.0.1+-blue)  
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13+-blue?logo=postgresql)  
 ![Maven](https://img.shields.io/badge/Maven-3.6+-red?logo=apache-maven)  
 
