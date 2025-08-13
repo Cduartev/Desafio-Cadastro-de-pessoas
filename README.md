@@ -97,7 +97,7 @@ O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arq
 
 6. **Acessar a aplicação**
    ```
-   http://localhost:8080/cadastro-pessoas/
+   http://localhost:8080/Cadastro-1.0-SNAPSHOT/index.xhtml
    ```
 
 ---
