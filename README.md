@@ -3,11 +3,12 @@
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)  
 ![JSF](https://img.shields.io/badge/JSF-2.2+-orange)  
 ![BootsFaces](https://img.shields.io/badge/BootsFaces-2.0.1+-blue)  
+![PrimeFaces](https://img.shields.io/badge/PrimeFaces-14.0.4+-green)  
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13+-blue?logo=postgresql)  
 ![Maven](https://img.shields.io/badge/Maven-3.6+-red?logo=apache-maven)  
 
-Sistema de **cadastro e gerenciamento de pessoas** desenvolvido utilizando **Java EE**, **JSF**, **BootsFaces** e **JPA/Hibernate**, com integração ao **PostgreSQL**.  
-O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arquitetura limpa e utilização de recursos modernos do ecossistema Java EE.  
+Sistema de **cadastro e gerenciamento de pessoas** desenvolvido utilizando **Java EE**, **JSF**, **BootsFaces**, **PrimeFaces** e **JPA/Hibernate**, com integração ao **PostgreSQL**.  
+O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arquitetura limpa e utilização de recursos modernos do ecossistema Java EE, combinando a simplicidade do BootsFaces com os componentes avançados do PrimeFaces.
 
 ---
 
@@ -16,15 +17,16 @@ O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arq
 - **CRUD completo de pessoas**  
 - **Gerenciamento de múltiplos endereços por pessoa**  
 - **Validação de formulários no cliente e no servidor**  
-- **Interface responsiva com BootsFaces + Bootstrap**  
+- **Interface responsiva com BootsFaces (Bootstrap) e PrimeFaces**  
 - **Integração total com PostgreSQL via JPA/Hibernate**  
 - **Estrutura modular para fácil manutenção**  
+- **Tabelas com filtragem e ordenação avançadas via PrimeFaces**  
 
 ---
 
 ## 🏗 Arquitetura e Tecnologias
 
-**Frontend:** JSF + BootsFaces (Bootstrap integrado)  
+**Frontend:** JSF + BootsFaces (Bootstrap integrado) + PrimeFaces  
 **Backend:** Java 17, Java EE 11 (EJBs)  
 **Persistência:** JPA + Hibernate  
 **Banco de Dados:** PostgreSQL 13+  
@@ -37,7 +39,8 @@ O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arq
 
 - **Java EE 11 + EJBs** → Fornece uma arquitetura robusta e padronizada para aplicações corporativas, com gerenciamento transacional e segurança embutidos.  
 - **JSF (JavaServer Faces)** → Framework oficial da especificação Java EE para criação de interfaces web baseadas em componentes, facilitando a ligação entre backend e frontend.  
-- **BootsFaces** → Escolhido no lugar do PrimeFaces por integrar **Bootstrap** diretamente ao JSF, garantindo **layout responsivo** e **componentes estilizados** sem necessidade de configuração extra, além de ser mais leve e fácil de customizar.  
+- **BootsFaces** → Integra **Bootstrap** diretamente ao JSF, garantindo **layout responsivo** e **componentes estilizados** com simplicidade e leveza.  
+- **PrimeFaces** → Adicionado para fornecer componentes avançados, como tabelas com filtragem, ordenação e paginação, complementando o BootsFaces com funcionalidades mais ricas e interativas.  
 - **JPA + Hibernate** → Abstrai o acesso ao banco de dados com mapeamento objeto-relacional (ORM), reduzindo código SQL e facilitando manutenção.  
 - **PostgreSQL** → Banco de dados relacional poderoso, confiável, open-source e amplamente utilizado no mercado.  
 - **Maven** → Gerenciador de dependências e build, garantindo reprodutibilidade do projeto e integração facilitada com servidores de aplicação.  
@@ -45,7 +48,7 @@ O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arq
 
 ---
 
-## 📊 BootsFaces x PrimeFaces — Por que a troca?
+## 📊 BootsFaces x PrimeFaces — Integração no Projeto
 
 | Critério                  | BootsFaces | PrimeFaces |
 |---------------------------|------------|------------|
@@ -54,9 +57,9 @@ O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arq
 | **Curva de aprendizado**  | Baixa, segue padrão Bootstrap | Média, precisa aprender componentes específicos |
 | **Customização de CSS**   | Fácil (aproveita classes do Bootstrap) | Mais restrito, exige temas próprios |
 | **Responsividade**        | Nativa via Bootstrap Grid | Depende do layout/tema |
-| **Quantidade de componentes** | Menor, mas suficiente para CRUDs | Muito maior, mas pode ser excesso para apps simples |
+| **Quantidade de componentes** | Menor, ideal para layouts simples | Muito maior, ideal para interatividade avançada |
 
-> **Resumo:** O BootsFaces foi escolhido porque o foco do projeto é **simplicidade, responsividade e personalização rápida** sem sobrecarregar a aplicação com recursos que não serão utilizados.
+> **Integração no Projeto:** O BootsFaces foi mantido para layouts responsivos e estilização leve baseada em Bootstrap, enquanto o PrimeFaces foi incorporado para componentes avançados, como tabelas com filtragem, ordenação e paginação. A combinação das duas bibliotecas permite um equilíbrio entre simplicidade, responsividade e funcionalidades interativas.
 
 ---
 
@@ -82,22 +85,31 @@ O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arq
    ```sql
    CREATE DATABASE cadastro_pessoas;
    ```
-![Diagrama UML](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/relacionamento.png)
+   ![Diagrama UML](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/relacionamento.png)
 
 3. **Configurar credenciais no `persistence.xml`**  
    Ajuste usuário, senha e URL do banco conforme seu ambiente.
 
-4. **Gerar e empacotar o projeto**
+4. **Configurar tema do PrimeFaces (opcional)**  
+   Adicione ao `web.xml` para definir um tema (exemplo: `saga-blue`):
+   ```xml
+   <context-param>
+       <param-name>primefaces.THEME</param-name>
+       <param-value>saga-blue</param-value>
+   </context-param>
+   ```
+
+5. **Gerar e empacotar o projeto**
    ```bash
    mvn clean package
    ```
 
-5. **Implantar no WildFly**  
+6. **Implantar no WildFly**  
    Copie o `.war` gerado para a pasta `standalone/deployments` do servidor.
 
-6. **Acessar a aplicação**
+7. **Acessar a aplicação**
    ```
-   http://localhost:8080/Cadastro-1.0-SNAPSHOT/form.xhtml
+   http://localhost:8080/Cadastro-1.0-SNAPSHOT/index.xhtml
    ```
 
 ---
@@ -130,7 +142,6 @@ Cadastro/
       ├─ form.xhtml                # Página de formulário de cadastro
       ├─ index.jsp                 # Página inicial JSP (opcional)
       └─ index.xhtml               # Página inicial JSF
-
 ```
 
 ---
@@ -148,29 +159,19 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 🔗 GitHub: [Cduartev](https://github.com/Cduartev)  
 
 ## 📂 Telas
-**CADASTAR**
 
+**CADASTRAR**
 
 ![Cadastrar](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-cadastrar.png)
 
-
-**lISTAR**
-
+**LISTAR**
 
 ![Listar](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-listagem.png)
 
-
 **EXCLUIR**
-
 
 ![Excluir](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-excluir.png)
 
-
 **EDITAR**
 
-
-![editar](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-editar.png)
-
-
-
-
+![Editar](https://github.com/Cduartev/Desafio-Cadastro-de-pessoas/blob/master/Cadastro/fotos-editar.png)
