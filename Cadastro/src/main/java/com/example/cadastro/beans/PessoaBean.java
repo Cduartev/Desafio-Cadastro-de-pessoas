@@ -39,9 +39,6 @@ public class PessoaBean implements Serializable {
         carregarPessoaSeIdPresente();
     }
 
-    /**
-     * Se houver "id" como parâmetro na URL, carrega a pessoa para edição.
-     */
     private void carregarPessoaSeIdPresente() {
         try {
             Map<String, String> params = FacesContext.getCurrentInstance()
@@ -52,9 +49,12 @@ public class PessoaBean implements Serializable {
             if (idParam != null && !idParam.isEmpty()) {
                 Long id = Long.parseLong(idParam);
                 pessoa = service.buscar(id);
+
                 if (pessoa.getEnderecos() == null) {
                     pessoa.setEnderecos(new ArrayList<>());
                 }
+
+                // Garante que cada endereço tenha referência à pessoa
                 for (Endereco e : pessoa.getEnderecos()) {
                     e.setPessoa(pessoa);
                 }
@@ -79,33 +79,16 @@ public class PessoaBean implements Serializable {
 
     private void initEstadosBrasil() {
         estadosBrasil = Arrays.asList(
-                new Estado("AC", "Acre"),
-                new Estado("AL", "Alagoas"),
-                new Estado("AP", "Amapá"),
-                new Estado("AM", "Amazonas"),
-                new Estado("BA", "Bahia"),
-                new Estado("CE", "Ceará"),
-                new Estado("DF", "Distrito Federal"),
-                new Estado("ES", "Espírito Santo"),
-                new Estado("GO", "Goiás"),
-                new Estado("MA", "Maranhão"),
-                new Estado("MT", "Mato Grosso"),
-                new Estado("MS", "Mato Grosso do Sul"),
-                new Estado("MG", "Minas Gerais"),
-                new Estado("PA", "Pará"),
-                new Estado("PB", "Paraíba"),
-                new Estado("PR", "Paraná"),
-                new Estado("PE", "Pernambuco"),
-                new Estado("PI", "Piauí"),
-                new Estado("RJ", "Rio de Janeiro"),
-                new Estado("RN", "Rio Grande do Norte"),
-                new Estado("RS", "Rio Grande do Sul"),
-                new Estado("RO", "Rondônia"),
-                new Estado("RR", "Roraima"),
-                new Estado("SC", "Santa Catarina"),
-                new Estado("SP", "São Paulo"),
-                new Estado("SE", "Sergipe"),
-                new Estado("TO", "Tocantins")
+                new Estado("AC", "Acre"), new Estado("AL", "Alagoas"), new Estado("AP", "Amapá"),
+                new Estado("AM", "Amazonas"), new Estado("BA", "Bahia"), new Estado("CE", "Ceará"),
+                new Estado("DF", "Distrito Federal"), new Estado("ES", "Espírito Santo"),
+                new Estado("GO", "Goiás"), new Estado("MA", "Maranhão"), new Estado("MT", "Mato Grosso"),
+                new Estado("MS", "Mato Grosso do Sul"), new Estado("MG", "Minas Gerais"),
+                new Estado("PA", "Pará"), new Estado("PB", "Paraíba"), new Estado("PR", "Paraná"),
+                new Estado("PE", "Pernambuco"), new Estado("PI", "Piauí"), new Estado("RJ", "Rio de Janeiro"),
+                new Estado("RN", "Rio Grande do Norte"), new Estado("RS", "Rio Grande do Sul"),
+                new Estado("RO", "Rondônia"), new Estado("RR", "Roraima"), new Estado("SC", "Santa Catarina"),
+                new Estado("SP", "São Paulo"), new Estado("SE", "Sergipe"), new Estado("TO", "Tocantins")
         );
     }
 
@@ -125,6 +108,7 @@ public class PessoaBean implements Serializable {
             service.salvar(pessoa);
             carregarPessoas();
             pessoa = new Pessoa();
+            pessoa.setEnderecos(new ArrayList<>());
             addSuccessMessage("Pessoa salva com sucesso!");
             return "index.xhtml?faces-redirect=true";
         } catch (Exception e) {
@@ -152,10 +136,15 @@ public class PessoaBean implements Serializable {
         Endereco novoEndereco = new Endereco();
         novoEndereco.setPessoa(pessoa);
         pessoa.getEnderecos().add(novoEndereco);
+
+        // Atualiza a tabela no frontend
+        FacesContext.getCurrentInstance().validationFailed();
     }
 
     public void removerEndereco(Endereco endereco) {
-        pessoa.getEnderecos().remove(endereco);
+        if (pessoa.getEnderecos() != null) {
+            pessoa.getEnderecos().remove(endereco);
+        }
     }
 
     private void addSuccessMessage(String message) {
@@ -177,37 +166,17 @@ public class PessoaBean implements Serializable {
             this.nome = nome;
         }
 
-        public String getSigla() {
-            return sigla;
-        }
-
-        public String getNome() {
-            return nome;
-        }
+        public String getSigla() { return sigla; }
+        public String getNome() { return nome; }
     }
 
     // Getters e Setters
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
+    public Pessoa getPessoa() { return pessoa; }
+    public void setPessoa(Pessoa pessoa) { this.pessoa = pessoa; }
 
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
+    public List<Pessoa> getPessoas() { return pessoas; }
+    public void setPessoas(List<Pessoa> pessoas) { this.pessoas = pessoas; }
 
-    public List<Pessoa> getPessoas() {
-        return pessoas;
-    }
-
-    public void setPessoas(List<Pessoa> pessoas) {
-        this.pessoas = pessoas;
-    }
-
-    public List<Estado> getEstadosBrasil() {
-        return estadosBrasil;
-    }
-
-    public void setEstadosBrasil(List<Estado> estadosBrasil) {
-        this.estadosBrasil = estadosBrasil;
-    }
+    public List<Estado> getEstadosBrasil() { return estadosBrasil; }
+    public void setEstadosBrasil(List<Estado> estadosBrasil) { this.estadosBrasil = estadosBrasil; }
 }

@@ -8,42 +8,73 @@
     <title>Cadastro de Pessoa</title>
 </h:head>
 <h:body>
-    <b:container>
+    <b:container class="mt-4">
+
         <b:messages id="msgs" showDetail="true" autoUpdate="true" closable="true" />
 
-        <h:form id="cadastroForm">
-            <b:panel title="#{pessoaBean.pessoa.id == null ? 'Nova Pessoa' : 'Editar Pessoa'}" look="primary">
+        <h:form id="formPessoa">
+
+            <!-- CARD DE DADOS PESSOAIS -->
+            <b:panel title="#{pessoaBean.pessoa.id == null ? 'Nova Pessoa' : 'Editar Pessoa'}"
+                     look="primary"
+                     iconAwesome="user"
+                     class="mb-4 shadow-sm">
                 <b:row>
-                    <b:column col-md="6">
-                        <b:inputText label="Nome" value="#{pessoaBean.pessoa.nome}" required="true" labelStyleClass="required-field"/>
+                    <b:column col-md="6" col-sm="12" class="mb-2">
+                        <b:inputText id="nome" label="Nome"
+                                     value="#{pessoaBean.pessoa.nome}"
+                                     required="true"
+                                     requiredMessage="O campo Nome é obrigatório"
+                                     placeholder="Digite o nome completo"
+                                     icon="user"/>
+                        <b:message for="nome"/>
                     </b:column>
-                    <b:column col-md="3">
-                        <b:inputText label="Idade" value="#{pessoaBean.pessoa.idade}" required="true" />
+
+                    <b:column col-md="3" col-sm="6" class="mb-2">
+                        <b:inputText id="idade" label="Idade"
+                                     value="#{pessoaBean.pessoa.idade}"
+                                     type="number"
+                                     required="true"
+                                     requiredMessage="Informe a idade"
+                                     icon="calendar"/>
+                        <b:message for="idade"/>
                     </b:column>
-                    <b:column col-md="3">
-                        <b:selectOneMenu label="Sexo" value="#{pessoaBean.pessoa.sexo}" required="true">
+
+                    <b:column col-md="3" col-sm="6" class="mb-2">
+                        <b:selectOneMenu id="sexo" label="Sexo"
+                                         value="#{pessoaBean.pessoa.sexo}"
+                                         required="true"
+                                         requiredMessage="Selecione o sexo"
+                                         icon="venus-mars">
                             <f:selectItem itemLabel="Selecione" itemValue="" />
                             <f:selectItem itemLabel="Masculino" itemValue="M" />
                             <f:selectItem itemLabel="Feminino" itemValue="F" />
                         </b:selectOneMenu>
+                        <b:message for="sexo"/>
                     </b:column>
                 </b:row>
             </b:panel>
 
-            <b:panel title="Endereços" look="info">
-                <b:dataTable value="#{pessoaBean.pessoa.enderecos}" var="endereco"
-                             rendered="#{not empty pessoaBean.pessoa.enderecos}"
-                             striped="true" responsive="true">
+            <!-- CARD DE ENDEREÇOS -->
+            <b:panel title="Endereços" look="success" iconAwesome="map-marker" class="mb-4 shadow-sm">
+                <b:dataTable id="tabelaEnderecos"
+                             value="#{pessoaBean.pessoa.enderecos}"
+                             var="endereco"
+                             striped="true" responsive="scroll" hover="true">
+
                     <b:dataTableColumn label="CEP">
-                        <b:inputText value="#{endereco.cep}" />
+                        <b:inputText value="#{endereco.cep}" placeholder="00000-000"
+                                     required="true" requiredMessage="CEP obrigatório"
+                                     mask="99999-999"/>
                     </b:dataTableColumn>
 
                     <b:dataTableColumn label="Cidade">
-                        <b:inputText value="#{endereco.cidade}" />
+                        <b:inputText value="#{endereco.cidade}" placeholder="Ex: São Paulo"
+                                     required="true" requiredMessage="Cidade obrigatória"/>
                     </b:dataTableColumn>
 
                     <b:dataTableColumn label="Estado">
-                        <b:selectOneMenu value="#{endereco.estado}">
+                        <b:selectOneMenu value="#{endereco.estado}" required="true" requiredMessage="Selecione o estado">
                             <f:selectItem itemLabel="Selecione" itemValue="" />
                             <f:selectItems value="#{pessoaBean.estadosBrasil}"
                                            var="estado"
@@ -53,19 +84,42 @@
                     </b:dataTableColumn>
 
                     <b:dataTableColumn label="Número">
-                        <b:inputText value="#{endereco.numero}" />
+                        <b:inputText value="#{endereco.numero}" placeholder="Nº"
+                                     required="true" requiredMessage="Número obrigatório"/>
                     </b:dataTableColumn>
 
                     <b:dataTableColumn label="Ações">
-                        <b:commandButton value="Remover" look="danger" action="#{pessoaBean.removerEndereco(endereco)}" ajax="true" update="@form" />
+                        <b:commandButton value="Remover"
+                                         look="danger"
+                                         icon="trash"
+                                         action="#{pessoaBean.removerEndereco(endereco)}"
+                                         ajax="true"
+                                         update="tabelaEnderecos msgs" />
                     </b:dataTableColumn>
+
                 </b:dataTable>
 
-                <b:commandButton value="Adicionar Endereço" look="info" icon="plus" action="#{pessoaBean.adicionarEndereco}" ajax="true" update="@form" />
+                <b:commandButton value="Adicionar Endereço"
+                                 look="info"
+                                 icon="plus"
+                                 action="#{pessoaBean.adicionarEndereco}"
+                                 ajax="true"
+                                 update="tabelaEnderecos msgs"
+                                 styleClass="mt-3 mb-2"/>
             </b:panel>
 
-            <b:commandButton value="Salvar" look="success" icon="save" action="#{pessoaBean.salvar}" ajax="false" />
-            <b:button value="Voltar" look="default" icon="arrow-left" outcome="index" />
+            <!-- BOTÕES FINAIS -->
+            <b:row>
+                <b:column col-md="3" col-sm="6" class="mb-2">
+                    <b:commandButton value="Salvar" look="success" icon="save"
+                                     action="#{pessoaBean.salvar}" ajax="false" block="true"/>
+                </b:column>
+                <b:column col-md="3" col-sm="6" class="mb-2">
+                    <b:button value="Voltar" look="secondary" icon="arrow-left"
+                              outcome="index" block="true"/>
+                </b:column>
+            </b:row>
+
         </h:form>
     </b:container>
 </h:body>
