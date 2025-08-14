@@ -7,6 +7,23 @@
 
 <h:head>
     <title>Listagem de Pessoas</title>
+    <style>
+        .larger-button {
+            font-size: 1.1rem !important;
+            padding: 0.75rem 1.5rem !important;
+            width: auto !important;
+        }
+        .table th, .table td {
+            font-size: 1.1rem !important;
+            padding: 0.75rem !important;
+        }
+        .larger-input {
+            font-size: 1.1rem !important;
+            padding: 0.75rem !important;
+            height: 2.5rem !important;
+            width: 100% !important;
+        }
+    </style>
 </h:head>
 <h:body>
     <b:container>
@@ -14,7 +31,7 @@
             <b:messages id="msgs" showDetail="true" autoUpdate="true" closable="true" />
 
             <!-- Botão Nova Pessoa -->
-            <h:link outcome="form.xhtml" styleClass="btn btn-primary mb-3">
+            <h:link outcome="form.xhtml" styleClass="btn btn-primary mb-3 larger-button">
                 <i class="fa fa-plus"></i> Nova Pessoa
             </h:link>
 
@@ -25,16 +42,18 @@
                          rows="10">
                 <p:column headerText="Nome" sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}" filterMatchMode="contains">
                     <h:outputText value="#{pessoa.nome}" />
+                    <p:inputText styleClass="larger-input" style="display: none;" />
                 </p:column>
 
                 <p:column headerText="Idade" sortBy="#{pessoa.idade}" filterBy="#{pessoa.idade}" filterMatchMode="exact">
                     <h:outputText value="#{pessoa.idade}" />
+                    <p:inputText styleClass="larger-input" style="display: none;" />
                 </p:column>
 
                 <p:column headerText="Ações">
                     <div class="d-flex gap-2">
                         <!-- Link para edição -->
-                        <h:link value="Editar" outcome="form.xhtml" styleClass="btn btn-warning btn-sm">
+                        <h:link value="Editar" outcome="form.xhtml" styleClass="btn btn-warning btn-sm larger-button">
                             <f:param name="id" value="#{pessoa.id}" />
                         </h:link>
 
@@ -44,7 +63,7 @@
                                          icon="trash"
                                          action="#{pessoaBean.excluir(pessoa.id)}"
                                          ajax="false"
-                                         size="sm" />
+                                         styleClass="larger-button" />
                     </div>
                 </p:column>
             </p:dataTable>
