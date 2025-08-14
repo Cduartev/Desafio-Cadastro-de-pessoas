@@ -97,7 +97,7 @@ O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arq
 
 6. **Acessar a aplicação**
    ```
-   http://localhost:8080/Cadastro-1.0-SNAPSHOT/index.xhtml
+   http://localhost:8080/Cadastro-1.0-SNAPSHOT/form.xhtml
    ```
 
 ---
@@ -105,17 +105,32 @@ O projeto foi estruturado para demonstrar boas práticas de desenvolvimento, arq
 ## 📂 Estrutura do Projeto
 
 ```
-cadastro-pessoas/
- ├── src/main/java
- │    ├── br.com.cadastro.model     # Entidades JPA
- │    ├── br.com.cadastro.service   # EJBs e Regras de Negócio
- │    └── br.com.cadastro.controller# Managed Beans
- ├── src/main/resources
- │    └── META-INF/persistence.xml  # Configuração JPA
- ├── src/main/webapp
- │    |                   # Páginas JSF (xhtml)
- │    └── WEB-INF/web.xml           # Configuração web
- └── pom.xml                        # Dependências Maven
+Cadastro/
+├─ .idea/                         # Configurações do IDE (IntelliJ IDEA)
+├─ .mvn/                          # Arquivos do Maven (build e wrapper)
+├─ src/
+│  └─ main/
+│     ├─ java/                     # Código-fonte Java (backend)
+│     │  └─ com/example/cadastro/
+│     │     ├─ beans/              # Managed Beans JSF
+│     │     │  └─ PessoaBean.java  # Bean de controle de Pessoa
+│     │     ├─ model/              # Modelos de dados
+│     │     │  ├─ Endereco.java    # Classe Endereco
+│     │     │  └─ Pessoa.java      # Classe Pessoa
+│     │     └─ service/            # Lógica de negócio / serviços
+│     │        ├─ PessoaService.java # Serviço de Pessoa (CRUD)
+│     │        └─ HelloServlet.java  # Exemplo de Servlet
+│     └─ resources/                # Recursos e configurações
+│        └─ META-INF/
+│           ├─ jboss-deployment-structure.xml # Configurações do WildFly
+│           └─ persistence.xml    # Configuração do JPA/Hibernate
+└─ webapp/                         # Frontend e páginas web
+   └─ WEB-INF/
+      ├─ web.xml                   # Configuração de servlets, filtros e JSF
+      ├─ form.xhtml                # Página de formulário de cadastro
+      ├─ index.jsp                 # Página inicial JSP (opcional)
+      └─ index.xhtml               # Página inicial JSF
+
 ```
 
 ---
