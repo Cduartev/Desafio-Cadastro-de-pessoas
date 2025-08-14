@@ -52,10 +52,14 @@
             <artifactId>jakarta.faces</artifactId>
             <version>4.1.2</version>
         </dependency>
-
-
-
-        <!-- CDI e Annotation API para jakarta.inject e @PostConstruct -->
+        <!-- PrimeFaces Dependency -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>14.0.4</version>
+            <classifier>jakarta</classifier>
+        </dependency>
+        <!-- CDI e Annotation API -->
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
@@ -68,7 +72,7 @@
             <version>2.1.1</version>
             <scope>provided</scope>
         </dependency>
-
+        <!-- JUnit for testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

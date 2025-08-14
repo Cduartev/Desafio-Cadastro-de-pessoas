@@ -3,6 +3,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
@@ -10,11 +11,9 @@
 </h:head>
 <h:body>
     <b:container class="mt-4">
-
         <b:messages id="msgs" showDetail="true" autoUpdate="true" closable="true" />
 
         <h:form id="formPessoa">
-
             <!-- DADOS PESSOAIS -->
             <b:panel title="#{pessoaBean.pessoa.id == null ? 'Nova Pessoa' : 'Editar Pessoa'}"
                      look="primary"
@@ -22,35 +21,32 @@
                      class="mb-4 shadow-sm">
                 <b:row>
                     <b:column col-md="6" col-sm="12" class="mb-2">
-                        <b:inputText id="nome" label="Nome"
+                        <p:inputText id="nome"
                                      value="#{pessoaBean.pessoa.nome}"
                                      required="true"
                                      requiredMessage="O campo Nome é obrigatório"
-                                     placeholder="Digite o nome completo"
-                                     icon="user"/>
+                                     placeholder="Digite o nome completo" />
                         <b:message for="nome"/>
                     </b:column>
 
                     <b:column col-md="3" col-sm="6" class="mb-2">
-                        <b:inputText id="idade" label="Idade"
-                                     value="#{pessoaBean.pessoa.idade}"
-                                     type="number"
-                                     required="true"
-                                     requiredMessage="Informe a idade"
-                                     icon="calendar"/>
+                        <p:inputNumber id="idade"
+                                       value="#{pessoaBean.pessoa.idade}"
+                                       required="true"
+                                       requiredMessage="Informe a idade"
+                                       placeholder="Idade" />
                         <b:message for="idade"/>
                     </b:column>
 
                     <b:column col-md="3" col-sm="6" class="mb-2">
-                        <b:selectOneMenu id="sexo" label="Sexo"
+                        <p:selectOneMenu id="sexo"
                                          value="#{pessoaBean.pessoa.sexo}"
                                          required="true"
-                                         requiredMessage="Selecione o sexo"
-                                         icon="venus-mars">
+                                         requiredMessage="Selecione o sexo">
                             <f:selectItem itemLabel="Selecione" itemValue="" />
                             <f:selectItem itemLabel="Masculino" itemValue="M" />
                             <f:selectItem itemLabel="Feminino" itemValue="F" />
-                        </b:selectOneMenu>
+                        </p:selectOneMenu>
                         <b:message for="sexo"/>
                     </b:column>
                 </b:row>
@@ -58,44 +54,41 @@
 
             <!-- ENDEREÇOS -->
             <b:panel title="Endereços" look="success" iconAwesome="map-marker" class="mb-4 shadow-sm">
-                <b:dataTable id="tabelaEnderecos"
+                <p:dataTable id="tabelaEnderecos"
                              value="#{pessoaBean.pessoa.enderecos}"
                              var="endereco"
-                             striped="true" hover="true" responsive="scroll">
+                             styleClass="table table-sm">
+                    <p:column headerText="CEP">
+                        <p:inputMask value="#{endereco.cep}" mask="99999-999" placeholder="00000-000"/>
+                    </p:column>
 
-                    <b:dataTableColumn label="CEP">
-                        <b:inputText value="#{endereco.cep}" placeholder="00000-000"
-                                     mask="99999-999"/>
-                    </b:dataTableColumn>
+                    <p:column headerText="Cidade">
+                        <p:inputText value="#{endereco.cidade}" placeholder="Ex: São Paulo"/>
+                    </p:column>
 
-                    <b:dataTableColumn label="Cidade">
-                        <b:inputText value="#{endereco.cidade}" placeholder="Ex: São Paulo"/>
-                    </b:dataTableColumn>
-
-                    <b:dataTableColumn label="Estado">
-                        <b:selectOneMenu value="#{endereco.estado}">
+                    <p:column headerText="Estado">
+                        <p:selectOneMenu value="#{endereco.estado}">
                             <f:selectItem itemLabel="Selecione" itemValue="" />
                             <f:selectItems value="#{pessoaBean.estadosBrasil}"
                                            var="estado"
                                            itemLabel="#{estado.nome}"
                                            itemValue="#{estado.sigla}" />
-                        </b:selectOneMenu>
-                    </b:dataTableColumn>
+                        </p:selectOneMenu>
+                    </p:column>
 
-                    <b:dataTableColumn label="Número">
-                        <b:inputText value="#{endereco.numero}" placeholder="Nº"/>
-                    </b:dataTableColumn>
+                    <p:column headerText="Número">
+                        <p:inputText value="#{endereco.numero}" placeholder="Nº"/>
+                    </p:column>
 
-                    <b:dataTableColumn label="Ações">
+                    <p:column headerText="Ações">
                         <b:commandButton value="Remover"
                                          look="danger"
                                          icon="trash"
                                          action="#{pessoaBean.removerEndereco(endereco)}"
                                          ajax="true"
                                          update="formPessoa:tabelaEnderecos formPessoa:msgs" />
-                    </b:dataTableColumn>
-
-                </b:dataTable>
+                    </p:column>
+                </p:dataTable>
 
                 <b:commandButton value="Adicionar Endereço"
                                  look="info"
@@ -117,7 +110,6 @@
                               outcome="index" block="true"/>
                 </b:column>
             </b:row>
-
         </h:form>
     </b:container>
 </h:body>
