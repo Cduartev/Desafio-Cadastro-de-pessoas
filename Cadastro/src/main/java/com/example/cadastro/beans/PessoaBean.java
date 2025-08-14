@@ -54,7 +54,6 @@ public class PessoaBean implements Serializable {
                     pessoa.setEnderecos(new ArrayList<>());
                 }
 
-                // Garante que cada endereço tenha referência à pessoa
                 for (Endereco e : pessoa.getEnderecos()) {
                     e.setPessoa(pessoa);
                 }
@@ -129,6 +128,9 @@ public class PessoaBean implements Serializable {
         }
     }
 
+    // =====================
+    // MÉTODOS DE ENDEREÇO
+    // =====================
     public void adicionarEndereco() {
         if (pessoa.getEnderecos() == null) {
             pessoa.setEnderecos(new ArrayList<>());
@@ -136,17 +138,19 @@ public class PessoaBean implements Serializable {
         Endereco novoEndereco = new Endereco();
         novoEndereco.setPessoa(pessoa);
         pessoa.getEnderecos().add(novoEndereco);
-
-        // Atualiza a tabela no frontend
-        FacesContext.getCurrentInstance().validationFailed();
     }
 
     public void removerEndereco(Endereco endereco) {
         if (pessoa.getEnderecos() != null) {
             pessoa.getEnderecos().remove(endereco);
+            // força atualização da tabela no frontend
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("formPessoa:tabelaEnderecos");
         }
     }
 
+    // =====================
+    // MENSAGENS
+    // =====================
     private void addSuccessMessage(String message) {
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", message));
@@ -157,6 +161,9 @@ public class PessoaBean implements Serializable {
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", message));
     }
 
+    // =====================
+    // CLASSE AUXILIAR ESTADO
+    // =====================
     public static class Estado {
         private String sigla;
         private String nome;
@@ -170,7 +177,9 @@ public class PessoaBean implements Serializable {
         public String getNome() { return nome; }
     }
 
-    // Getters e Setters
+    // =====================
+    // GETTERS E SETTERS
+    // =====================
     public Pessoa getPessoa() { return pessoa; }
     public void setPessoa(Pessoa pessoa) { this.pessoa = pessoa; }
 

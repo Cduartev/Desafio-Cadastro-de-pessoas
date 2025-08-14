@@ -12,14 +12,18 @@
         <h:form id="formListagem">
             <b:messages id="msgs" showDetail="true" autoUpdate="true" closable="true" />
 
-            <!-- Botão Nova Pessoa - vai direto para form.xhtml -->
-            <h:link outcome="form.xhtml" styleClass="btn btn-primary">
+            <!-- Botão Nova Pessoa -->
+            <h:link outcome="form.xhtml" styleClass="btn btn-primary mb-3">
                 <i class="fa fa-plus"></i> Nova Pessoa
             </h:link>
 
             <!-- Tabela de Pessoas -->
             <b:dataTable value="#{pessoaBean.pessoas}" var="pessoa"
-                         striped="true" responsive="true">
+                         striped="true"
+                         hover="true"
+                         bordered="true"
+                         responsive="true"
+                         styleClass="table table-sm">
                 <b:dataTableColumn label="Nome">
                     #{pessoa.nome}
                 </b:dataTableColumn>
@@ -29,16 +33,20 @@
                 </b:dataTableColumn>
 
                 <b:dataTableColumn label="Ações">
-                    <!-- Link para página de edição passando ID -->
-                    <h:link value="Editar" outcome="form.xhtml" styleClass="btn btn-warning btn-sm">
-                        <f:param name="id" value="#{pessoa.id}" />
-                    </h:link>
+                    <div class="d-flex gap-2">
+                        <!-- Link para edição -->
+                        <h:link value="Editar" outcome="form.xhtml" styleClass="btn btn-warning btn-sm">
+                            <f:param name="id" value="#{pessoa.id}" />
+                        </h:link>
 
-                    <b:commandButton value="Excluir"
-                                     look="danger"
-                                     icon="trash"
-                                     action="#{pessoaBean.excluir(pessoa.id)}"
-                                     ajax="false" />
+                        <!-- Botão excluir -->
+                        <b:commandButton value="Excluir"
+                                         look="danger"
+                                         icon="trash"
+                                         action="#{pessoaBean.excluir(pessoa.id)}"
+                                         ajax="false"
+                                         size="sm" />
+                    </div>
                 </b:dataTableColumn>
             </b:dataTable>
         </h:form>

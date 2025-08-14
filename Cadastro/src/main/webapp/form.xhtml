@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
     <title>Cadastro de Pessoa</title>
@@ -14,7 +15,7 @@
 
         <h:form id="formPessoa">
 
-            <!-- CARD DE DADOS PESSOAIS -->
+            <!-- DADOS PESSOAIS -->
             <b:panel title="#{pessoaBean.pessoa.id == null ? 'Nova Pessoa' : 'Editar Pessoa'}"
                      look="primary"
                      iconAwesome="user"
@@ -55,26 +56,24 @@
                 </b:row>
             </b:panel>
 
-            <!-- CARD DE ENDEREÇOS -->
+            <!-- ENDEREÇOS -->
             <b:panel title="Endereços" look="success" iconAwesome="map-marker" class="mb-4 shadow-sm">
                 <b:dataTable id="tabelaEnderecos"
                              value="#{pessoaBean.pessoa.enderecos}"
                              var="endereco"
-                             striped="true" responsive="scroll" hover="true">
+                             striped="true" hover="true" responsive="scroll">
 
                     <b:dataTableColumn label="CEP">
                         <b:inputText value="#{endereco.cep}" placeholder="00000-000"
-                                     required="true" requiredMessage="CEP obrigatório"
                                      mask="99999-999"/>
                     </b:dataTableColumn>
 
                     <b:dataTableColumn label="Cidade">
-                        <b:inputText value="#{endereco.cidade}" placeholder="Ex: São Paulo"
-                                     required="true" requiredMessage="Cidade obrigatória"/>
+                        <b:inputText value="#{endereco.cidade}" placeholder="Ex: São Paulo"/>
                     </b:dataTableColumn>
 
                     <b:dataTableColumn label="Estado">
-                        <b:selectOneMenu value="#{endereco.estado}" required="true" requiredMessage="Selecione o estado">
+                        <b:selectOneMenu value="#{endereco.estado}">
                             <f:selectItem itemLabel="Selecione" itemValue="" />
                             <f:selectItems value="#{pessoaBean.estadosBrasil}"
                                            var="estado"
@@ -84,8 +83,7 @@
                     </b:dataTableColumn>
 
                     <b:dataTableColumn label="Número">
-                        <b:inputText value="#{endereco.numero}" placeholder="Nº"
-                                     required="true" requiredMessage="Número obrigatório"/>
+                        <b:inputText value="#{endereco.numero}" placeholder="Nº"/>
                     </b:dataTableColumn>
 
                     <b:dataTableColumn label="Ações">
@@ -94,7 +92,7 @@
                                          icon="trash"
                                          action="#{pessoaBean.removerEndereco(endereco)}"
                                          ajax="true"
-                                         update="tabelaEnderecos msgs" />
+                                         update="formPessoa:tabelaEnderecos formPessoa:msgs" />
                     </b:dataTableColumn>
 
                 </b:dataTable>
@@ -104,7 +102,7 @@
                                  icon="plus"
                                  action="#{pessoaBean.adicionarEndereco}"
                                  ajax="true"
-                                 update="tabelaEnderecos msgs"
+                                 update="formPessoa:tabelaEnderecos formPessoa:msgs"
                                  styleClass="mt-3 mb-2"/>
             </b:panel>
 
