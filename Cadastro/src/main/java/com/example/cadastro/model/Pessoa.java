@@ -17,7 +17,7 @@ public class Pessoa {
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Endereco> enderecos;
 
-    // Getters e Setters
+
     public Long getId() {
         return id;
     }

@@ -128,9 +128,6 @@ public class PessoaBean implements Serializable {
         }
     }
 
-    // =====================
-    // MÉTODOS DE ENDEREÇO
-    // =====================
     public void adicionarEndereco() {
         if (pessoa.getEnderecos() == null) {
             pessoa.setEnderecos(new ArrayList<>());
@@ -148,9 +145,7 @@ public class PessoaBean implements Serializable {
         }
     }
 
-    // =====================
-    // MENSAGENS
-    // =====================
+
     private void addSuccessMessage(String message) {
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso", message));
@@ -161,9 +156,7 @@ public class PessoaBean implements Serializable {
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", message));
     }
 
-    // =====================
-    // CLASSE AUXILIAR ESTADO
-    // =====================
+
     public static class Estado {
         private String sigla;
         private String nome;
@@ -177,9 +170,7 @@ public class PessoaBean implements Serializable {
         public String getNome() { return nome; }
     }
 
-    // =====================
-    // GETTERS E SETTERS
-    // =====================
+
     public Pessoa getPessoa() { return pessoa; }
     public void setPessoa(Pessoa pessoa) { this.pessoa = pessoa; }
 

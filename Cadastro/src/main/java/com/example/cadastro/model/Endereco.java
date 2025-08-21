@@ -17,7 +17,7 @@ public class Endereco {
     @JoinColumn(name = "id_pessoa")
     private Pessoa pessoa;
 
-    // Getters e Setters
+
     public Long getId() {
         return id;
     }
