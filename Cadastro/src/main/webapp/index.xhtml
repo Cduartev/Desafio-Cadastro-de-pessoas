@@ -53,9 +53,15 @@
                 <p:column headerText="Ações">
                     <div class="d-flex gap-2">
                         <!-- Link para edição -->
-                        <h:link value="Editar" outcome="form.xhtml" styleClass="btn btn-warning btn-sm larger-button">
+                        <h:link outcome="form.xhtml"
+                                styleClass="btn btn-warning btn-sm larger-button">
+
+                            <i class="pi pi-pencil" style="margin-right: 6px;"></i>
+                            Ver Dados/Editar
+
                             <f:param name="id" value="#{pessoa.id}" />
                         </h:link>
+
 
                         <!-- Botão excluir -->
                         <b:commandButton value="Excluir"
