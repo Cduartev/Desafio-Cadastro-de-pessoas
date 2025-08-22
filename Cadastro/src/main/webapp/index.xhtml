@@ -9,70 +9,117 @@
     <title>Listagem de Pessoas</title>
     <style>
         .larger-button {
-            font-size: 1.1rem !important;
-            padding: 0.75rem 1.5rem !important;
+            font-size: 1.05rem !important;
+            padding: 0.5rem 1rem !important;
             width: auto !important;
         }
+
         .table th, .table td {
-            font-size: 1.1rem !important;
-            padding: 0.75rem !important;
+            font-size: 1.05rem !important;
+            padding: 0.65rem !important;
         }
+
         .larger-input {
-            font-size: 1.1rem !important;
-            padding: 0.75rem !important;
-            height: 2.5rem !important;
+            font-size: 1.05rem !important;
+            padding: 0.6rem !important;
             width: 100% !important;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 0.75rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .btn-action {
+            min-width: 120px;
+        }
+
+        .d-flex {
+            display: flex;
+        }
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        body {
+            background-color: #f8f9fa;
         }
     </style>
 </h:head>
+
 <h:body>
-    <b:container>
+    <b:container class="mt-4">
         <h:form id="formListagem">
             <b:messages id="msgs" showDetail="true" autoUpdate="true" closable="true" />
 
-            <!-- Botão Nova Pessoa -->
-            <h:link outcome="form.xhtml" styleClass="btn btn-primary mb-3 larger-button">
-                <i class="fa fa-plus"></i> Nova Pessoa
-            </h:link>
+            <div class="card">
+                <!-- Cabeçalho com título e botão -->
+                <div class="card-header">
+                    <h2 class="card-title">Pessoas Cadastradas</h2>
 
-            <!-- Tabela de Pessoas -->
-            <p:dataTable value="#{pessoaBean.pessoas}" var="pessoa"
-                         styleClass="table table-sm"
-                         paginator="true"
-                         rows="10">
-                <p:column headerText="Nome" sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}" filterMatchMode="contains">
-                    <h:outputText value="#{pessoa.nome}" />
-                    <p:inputText styleClass="larger-input" style="display: none;" />
-                </p:column>
+                    <h:link outcome="form.xhtml" styleClass="btn btn-primary larger-button">
+                        <i class="pi pi-plus" style="margin-right: 6px;"></i>
+                        Nova Pessoa
+                    </h:link>
+                </div>
 
-                <p:column headerText="Idade" sortBy="#{pessoa.idade}" filterBy="#{pessoa.idade}" filterMatchMode="exact">
-                    <h:outputText value="#{pessoa.idade}" />
-                    <p:inputText styleClass="larger-input" style="display: none;" />
-                </p:column>
+                <!-- Tabela -->
+                <p:dataTable value="#{pessoaBean.pessoas}" var="pessoa"
+                             styleClass="table table-striped table-hover table-sm"
+                             paginator="true"
+                             rows="10"
+                             paginatorPosition="bottom">
 
-                <p:column headerText="Ações">
-                    <div class="d-flex gap-2">
-                        <!-- Link para edição -->
-                        <h:link outcome="form.xhtml"
-                                styleClass="btn btn-warning btn-sm larger-button">
+                    <p:column headerText="Nome" sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}" filterMatchMode="contains">
+                        <h:outputText value="#{pessoa.nome}" />
+                    </p:column>
 
-                            <i class="pi pi-pencil" style="margin-right: 6px;"></i>
-                            Ver Dados/Editar
+                    <p:column headerText="Idade" sortBy="#{pessoa.idade}" filterBy="#{pessoa.idade}" filterMatchMode="exact">
+                        <h:outputText value="#{pessoa.idade}" />
+                    </p:column>
 
-                            <f:param name="id" value="#{pessoa.id}" />
-                        </h:link>
+                    <p:column headerText="Ações" style="width: 220px;">
+                        <div class="d-flex gap-2">
+                            <!-- Link para edição -->
+                            <h:link outcome="form.xhtml"
+                                    styleClass="btn btn-warning btn-sm larger-button btn-action"
+                                    title="Editar Pessoa">
+                                <i class="pi pi-pencil" style="margin-right: 6px;"></i>
+                                Editar
+                                <f:param name="id" value="#{pessoa.id}" />
+                            </h:link>
 
-
-                        <!-- Botão excluir -->
-                        <b:commandButton value="Excluir"
-                                         look="danger"
-                                         icon="trash"
-                                         action="#{pessoaBean.excluir(pessoa.id)}"
-                                         ajax="false"
-                                         styleClass="larger-button" />
-                    </div>
-                </p:column>
-            </p:dataTable>
+                            <!-- Botão excluir -->
+                            <b:commandButton value="Excluir"
+                                             look="danger"
+                                             icon="trash"
+                                             action="#{pessoaBean.excluir(pessoa.id)}"
+                                             ajax="false"
+                                             styleClass="btn-sm larger-button btn-action"
+                                             title="Excluir Pessoa" />
+                        </div>
+                    </p:column>
+                </p:dataTable>
+            </div>
         </h:form>
     </b:container>
 </h:body>
